@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 7b56c1c1770ecd84d8e89019f6309f3c
+guid: fdcbb2cf874eff544a707398b3051641
 TextureImporter:
   fileIDToRecycleName:
     21300000: cake__0
@@ -53,61 +53,61 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 530
-        width: 871
-        height: 530
+        y: 536
+        width: 877
+        height: 536
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: cake__1
       rect:
         serializedVersion: 2
-        x: 871
-        y: 530
-        width: 871
-        height: 530
+        x: 877
+        y: 536
+        width: 877
+        height: 536
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: cake__2
       rect:
         serializedVersion: 2
-        x: 1742
-        y: 530
-        width: 871
-        height: 530
+        x: 1754
+        y: 536
+        width: 877
+        height: 536
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: cake__3
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 871
-        height: 530
+        width: 877
+        height: 536
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: cake__4
       rect:
         serializedVersion: 2
-        x: 871
+        x: 877
         y: 0
-        width: 871
-        height: 530
+        width: 877
+        height: 536
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: cake__5
       rect:
         serializedVersion: 2
-        x: 1742
+        x: 1754
         y: 0
-        width: 871
-        height: 530
+        width: 877
+        height: 536
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 
