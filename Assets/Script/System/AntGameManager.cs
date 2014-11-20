@@ -5,7 +5,7 @@ public static class AntGameManager {
 
 	public static int destroy_AntNum = 0;
 	public static float Cake_HP = 100;
-	public static float time=60f;
+	public static float time=61f;
 	public static bool bMute = false;
 	public static int ant_num = 0;
 
@@ -18,16 +18,18 @@ public static class AntGameManager {
 		DAMAGE_4 = 5,
 	};
 	public static CAKESTATE cake_state = CAKESTATE.NORMAL;
+
 	static AntGameManager(){
 		Init ();
 	}
 
 	public static void Init(){
 		destroy_AntNum = 0;
-		time = 60f;
+		time = 61f;
 		Cake_HP = 100;
 		ant_num = 0;
 	}
+
 	public static void AddAnt(){
 		ant_num++;
 	}
@@ -55,6 +57,10 @@ public static class AntGameManager {
 			
 		}
 	}
+
+	public static int GetTime(){
+		return (int)time;
+		}
 
 	public static Sprite GetSprite(string fileName, string spriteName) {
 		Sprite[] sprites = Resources.LoadAll<Sprite>(fileName);
