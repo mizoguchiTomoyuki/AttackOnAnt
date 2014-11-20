@@ -1,0 +1,15 @@
+info face=M+ 1mn medium size=192 bold=0 italic=0 charset= unicode= stretchH=100 smooth=1 aa=1 padding=2,2,2,2 spacing=0,0 outline=0
+common lineHeight=285 base=206 scaleW=512 scaleH=512 pages=1 packed=0
+page id=0 file="font.png"
+chars count=10
+char id=48 x=2 y=2 width=85 height=152 xoffset=10 yoffset=0 xadvance=96 page=0 chnl=15
+char id=49 x=2 y=156 width=63 height=149 xoffset=14 yoffset=2 xadvance=96 page=0 chnl=15
+char id=50 x=2 y=307 width=77 height=150 xoffset=13 yoffset=0 xadvance=96 page=0 chnl=15
+char id=51 x=81 y=156 width=82 height=152 xoffset=11 yoffset=0 xadvance=96 page=0 chnl=15
+char id=52 x=89 y=2 width=93 height=149 xoffset=6 yoffset=2 xadvance=96 page=0 chnl=15
+char id=53 x=81 y=310 width=77 height=150 xoffset=15 yoffset=2 xadvance=96 page=0 chnl=15
+char id=54 x=160 y=310 width=84 height=152 xoffset=11 yoffset=0 xadvance=96 page=0 chnl=15
+char id=55 x=165 y=153 width=79 height=149 xoffset=12 yoffset=2 xadvance=96 page=0 chnl=15
+char id=56 x=246 y=2 width=89 height=152 xoffset=8 yoffset=0 xadvance=96 page=0 chnl=15
+char id=57 x=337 y=2 width=84 height=152 xoffset=9 yoffset=0 xadvance=96 page=0 chnl=15
+char id=32 x=0 y=0 width=0 height=0 xoffset=0 yoffset=0 xadvance=96 page=0 chnl=15
