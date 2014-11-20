@@ -5,22 +5,24 @@ using UnityEngine.UI;
 public class timer_manager : MonoBehaviour {
 
 	// Use this for initialization
-	public float startTime = 60.0f; // seconds
+	private float startTime = 61.0f; // seconds
 	public float timer;
 	public GameObject slider;
 	public Slider _slider;
 	public GameObject _time_text;
 	public GameObject _second_text;
+	public GameObject _handle;
 	public Text _text;
 	public Text _second;
 	public RectTransform _text_transform;
 	public RectTransform _second_transform;
-	public float Original_y = -2.206374f;
-	public float Original_y_sec = -3.210923f;
+	public RectTransform _handle_transform;
+	private float Original_y = -1.574461f;
+	private float Original_y_sec = -3.210923f;
 	private float x_position=0;
-	public float x_max = 73.372f;
-	public float x_min = -37.822f;
-	public float x_length = 0;
+	private float x_max = 72.688f;
+	private float x_min = -47.163f;
+	private float x_length = 0;
 
 	void Start()
 	{
@@ -30,8 +32,11 @@ public class timer_manager : MonoBehaviour {
 		_slider = slider.GetComponent<Slider>();
 		_text = _time_text.GetComponent<Text>();
 		_text_transform = _time_text.GetComponent<RectTransform>();
-		_second = _second_text.GetComponent<Text>();
-		_second_transform = _second_text.GetComponent<RectTransform>();
+		//_second = _second_text.GetComponent<Text>();
+		//_second_transform = _second_text.GetComponent<RectTransform>();
+		//Original_y= _text_transform.localPosition.y;
+		//x_max= _text_transform.localPosition.x;
+		_handle_transform = _handle.GetComponent<RectTransform>();
 	}
 	
 	void reset()
@@ -45,16 +50,17 @@ public class timer_manager : MonoBehaviour {
 		int temp_timer = AntGameManager.GetTime();
 		_slider.value = timer;
 		_text.text = temp_timer.ToString();
-		_text_transform.localPosition=new Vector3(x_min + x_length*timer/startTime,Original_y,0);
-		_second_transform.localPosition=new Vector3(x_min + x_length*timer/startTime +5,Original_y_sec,0);
-		if (timer <= 0.0f)
+		if (temp_timer <= 0)
 		{
-			timer = 0.0f;
-
+			temp_timer = 0;
+			
 			// 何かの処理
-
-
+			
+			
 		}
+		_handle_transform.localPosition=new Vector3(x_min + x_length*timer/startTime,Original_y,0);
+		_text_transform.localPosition=new Vector3(x_min + x_length*timer/startTime,Original_y,0);
+		//_second_transform.localPosition=new Vector3(x_min + x_length*timer/startTime +5,Original_y_sec,0);
 	}
 
 }

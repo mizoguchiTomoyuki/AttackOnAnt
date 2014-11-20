@@ -11,10 +11,10 @@ public class GameSystemManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		AntGameManager.time -= Time.deltaTime;
-		//if (time > 1) {
-		//	time = 0;
+		if (AntGameManager.time < 0) {
+			AntGameManager.time = 0;
 		//	AntGameManager.time--;
-		//}
+		}
 	
 	}
 }
