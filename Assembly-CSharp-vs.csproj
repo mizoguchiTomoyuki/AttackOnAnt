@@ -48,8 +48,12 @@
   <ItemGroup>
      <Compile Include="Assets\Add\timer_manager.cs" />
      <Compile Include="Assets\CakeManager.cs" />
+     <Compile Include="Assets\CursorManager.cs" />
+     <Compile Include="Assets\DifficultySystem.cs" />
      <Compile Include="Assets\GameManager.cs" />
      <Compile Include="Assets\GameSystemManager.cs" />
+     <Compile Include="Assets\HandManager.cs" />
+     <Compile Include="Assets\Keymanager.cs" />
      <Compile Include="Assets\Script\AntAnimation.cs" />
      <Compile Include="Assets\Script\AntCreator.cs" />
      <Compile Include="Assets\Script\EnemyDeleter.cs" />
@@ -65,6 +69,7 @@
      <Compile Include="Assets\Script\TargetAttack.cs" />
      <Compile Include="Assets\Script\TextureAnimation.cs" />
      <Compile Include="Assets\Script\TimeText.cs" />
+     <Compile Include="Assets\ZipAnimeSystem.cs" />
      <None Include="Assets\Font\TimeNum\numFont.xml" />
      <None Include="Assets\Font\fontScore.txt" />
      <None Include="Assets\Font\font3.txt" />

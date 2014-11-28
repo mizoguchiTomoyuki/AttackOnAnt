@@ -9,9 +9,11 @@ public class AppearAndSE : MonoBehaviour {
 	private float counttime = 0.0f;
 	// Use this for initialization
 	void Start () {
+		if(AntGameManager.progress == AntGameManager.PROGRESS.PLAYGAME){
 		if (!DelayFlag) {
 						if (BGMManager.Instance)BGMManager.Instance.PlaySE (SE_Number);
-				}
+			}
+		}
 	
 	}
 	

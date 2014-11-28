@@ -31,6 +31,7 @@ public class AntCreator : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if (AntGameManager.stflag) {
 		enemy_spawn_count += Time.deltaTime;
 		if (AntGameManager.ant_num <= max_Ant) {
 						if (enemy_spawn_count > interval) {
@@ -48,6 +49,7 @@ public class AntCreator : MonoBehaviour {
 								}
 						}
 				}
+		}
 	
 	}
 	Vector3 GetNumOfAppear(int n){

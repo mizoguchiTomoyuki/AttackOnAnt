@@ -28,7 +28,7 @@ public class timer_manager : MonoBehaviour {
 	{
 		x_length = x_max-x_min;
 		reset();
-		slider = GameObject.Find("Slider");
+	//	slider = GameObject.Find("Slider");
 		_slider = slider.GetComponent<Slider>();
 		_text = _time_text.GetComponent<Text>();
 		_text_transform = _time_text.GetComponent<RectTransform>();
@@ -46,6 +46,7 @@ public class timer_manager : MonoBehaviour {
 	
 	void Update()
 	{
+		if(AntGameManager.stflag){
 		timer =  AntGameManager.time;
 		int temp_timer = AntGameManager.GetTime();
 		_slider.value = timer;
@@ -61,6 +62,7 @@ public class timer_manager : MonoBehaviour {
 		_handle_transform.localPosition=new Vector3(x_min + x_length*timer/startTime,Original_y,0);
 		_text_transform.localPosition=new Vector3(x_min + x_length*timer/startTime,Original_y,0);
 		//_second_transform.localPosition=new Vector3(x_min + x_length*timer/startTime +5,Original_y_sec,0);
+		}
 	}
 
 }
