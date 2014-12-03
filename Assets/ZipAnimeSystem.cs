@@ -15,6 +15,12 @@ public class ZipAnimeSystem : MonoBehaviour {
 	public Slider _time_slider;
 	public GameObject _motite;
 	public RectTransform _motite_transform;
+	//Add 
+	public bool zipflag = false;
+	public bool autoflag = false;
+	public AudioSource aud;
+	public float premouseposition_x = 0;
+
 	//public Image _motite_img;
 	public int I=0;
 	public int IL;
@@ -56,6 +62,25 @@ public class ZipAnimeSystem : MonoBehaviour {
 	}
 	//IEnumerator Start (){
 	void Update(){
+		if (zipflag) {
+			if(!autoflag){
+				float pitch_upper = Mathf.Pow (Mathf.Abs((premouseposition_x - Input.mousePosition.x)/50),1.5f);
+				if(pitch_upper > 1){
+					pitch_upper =1;
+				}
+				aud.pitch = pitch_upper;
+			aud.Play();
+			premouseposition_x = Input.mousePosition.x;
+			}else{
+				float pitch_upper = Mathf.Abs(Mathf.Pow ((I/171f),2))+0.5f;
+				if(pitch_upper > 1){
+					pitch_upper =1;
+				}
+				aud.pitch = pitch_upper;
+				aud.Play();
+
+			}
+				}
 		//_hand_animator.SetBool("zipper",false);
 		int slider_value= (int) _zipper_slider.value;
 		//int i=0;
@@ -74,6 +99,7 @@ public class ZipAnimeSystem : MonoBehaviour {
 					_hand_animator.SetBool("zipper",false);
 				}*/
 		if(Input.GetMouseButtonDown(0)){
+					zipflag = true;
 					_hand_animator.SetBool("grip",true);
 					_hand_animator.SetBool("zipper",false);
 					progress = PROGRESS.BUTTONDOWN;
@@ -82,10 +108,13 @@ public class ZipAnimeSystem : MonoBehaviour {
 		if(Input.GetMouseButtonUp(0) && progress==PROGRESS.BUTTONDOWN && I!=0){
 			IL=I;
 			progress = PROGRESS.BUTTONUP;
+			zipflag = false;
 		}
 		if(progress==PROGRESS.BUTTONUP){
 			zipper_counter+=Time.deltaTime;
-			if(zipper_counter>=1){
+					if(zipper_counter>=1){
+						zipflag = true;
+						autoflag = true;
 				progress = PROGRESS.OPENZIPPER;
 						AntGameManager.ProgressStepUP();
 			}
@@ -102,7 +131,10 @@ public class ZipAnimeSystem : MonoBehaviour {
 			I=111-slider_value;
 		}
 		if(I>171){
-			    I=171;
+				I=171;
+				aud.pitch = 0;
+				zipflag = false;
+				autoflag = false;
 				AntGameManager.stflag =true;
 			zipper_slider.SetActive(false);
 			time_slider.SetActive(true);
