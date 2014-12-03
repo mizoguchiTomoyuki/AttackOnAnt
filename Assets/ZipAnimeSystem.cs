@@ -20,7 +20,8 @@ public class ZipAnimeSystem : MonoBehaviour {
 	public bool autoflag = false;
 	public AudioSource aud;
 	public float premouseposition_x = 0;
-
+	public float zipaudioCounter = 0;
+	public float prepitch_upper = 0;
 	//public Image _motite_img;
 	public int I=0;
 	public int IL;
@@ -63,22 +64,54 @@ public class ZipAnimeSystem : MonoBehaviour {
 	//IEnumerator Start (){
 	void Update(){
 		if (zipflag) {
+			zipaudioCounter+= Time.deltaTime;
+			if(zipaudioCounter > 0.001){
 			if(!autoflag){
-				float pitch_upper = Mathf.Pow (Mathf.Abs((premouseposition_x - Input.mousePosition.x)/50),1.5f);
-				if(pitch_upper > 1){
-					pitch_upper =1;
-				}
-				aud.pitch = pitch_upper;
+					zipaudioCounter = 0;
+
+				float pitch_upper = Mathf.Pow (Mathf.Abs((premouseposition_x - Input.mousePosition.x)/500),1f);
+					if(premouseposition_x - Input.mousePosition.x<0){
+						pitch_upper = Mathf.Pow (Mathf.Abs((premouseposition_x - Input.mousePosition.x)/1000),1f);
+
+					}
+					if(premouseposition_x - Input.mousePosition.x==0){
+						pitch_upper = 0;
+						
+					}
+					Debug.Log (pitch_upper);
+					if(premouseposition_x - Input.mousePosition.x <= prepitch_upper){
+						
+						Debug.Log ("Back");
+						aud.pitch -= pitch_upper+0.01f;
+					}else if(premouseposition_x - Input.mousePosition.x > prepitch_upper){
+						aud.pitch += pitch_upper+0.03f;
+						Debug.Log ("Gain");
+
+					}
+					if(premouseposition_x - Input.mousePosition.x == 0){
+						Debug.Log ("Equal");
+						aud.pitch -= 0.1f;
+					}
+					//aud.pitch = pitch_upper;
+					prepitch_upper = premouseposition_x - Input.mousePosition.x;
+					if(aud.pitch >0.8f){
+						aud.pitch =0.8f;
+					}
+					if(aud.pitch < 0.0f){
+						aud.pitch =0.0f;
+					}
 			aud.Play();
 			premouseposition_x = Input.mousePosition.x;
 			}else{
-				float pitch_upper = Mathf.Abs(Mathf.Pow ((I/171f),2))+0.5f;
-				if(pitch_upper > 1){
-					pitch_upper =1;
+					float pitch_upper = Mathf.Sin (((I-IL)/(float)(171-IL))*Mathf.PI);
+					//Debug.Log (pitch_upper);
+					if(pitch_upper > 1f){
+						pitch_upper =1f;
 				}
 				aud.pitch = pitch_upper;
 				aud.Play();
 
+			}
 			}
 				}
 		//_hand_animator.SetBool("zipper",false);
@@ -122,8 +155,9 @@ public class ZipAnimeSystem : MonoBehaviour {
 			}
 		if(slider_value<=0 || progress == PROGRESS.OPENZIPPER){
 			//I=IL;
-
-				I++;
+				
+				int a = 1+(int)(((I-IL)/(float)(171-IL))*10);
+				I+=a;
 				//_motite_transform.localPosition -= Vector3.right*(I*6);
 				//_motite_img.color = new Color(0,0,0,0);
 				_motite.SetActive(false);
