@@ -55,7 +55,8 @@ public class timer_manager : MonoBehaviour {
 		{
 			temp_timer = 0;
 			
-			// 何かの処理
+			// 何かの処理. 
+			//AntGameManager.stflag = false;
 			
 			
 		}

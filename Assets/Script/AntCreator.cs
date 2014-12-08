@@ -31,7 +31,7 @@ public class AntCreator : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (AntGameManager.stflag) {
+		if (AntGameManager.progress == AntGameManager.PROGRESS.PLAYGAME) {
 		enemy_spawn_count += Time.deltaTime;
 		if (AntGameManager.ant_num <= max_Ant) {
 						if (enemy_spawn_count > interval) {

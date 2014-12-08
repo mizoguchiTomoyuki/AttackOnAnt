@@ -10,7 +10,7 @@ public class GameSystemManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(AntGameManager.stflag){
+		if(AntGameManager.progress == AntGameManager.PROGRESS.PLAYGAME){
 		AntGameManager.time -= Time.deltaTime;
 		if (AntGameManager.time < 0) {
 			AntGameManager.time = 0;

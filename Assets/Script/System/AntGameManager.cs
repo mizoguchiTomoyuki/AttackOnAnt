@@ -33,7 +33,7 @@ public static class AntGameManager {
 		progress = PROGRESS.STARTWAIT;
 		stflag = false;
 		destroy_AntNum = 0;
-		time = 61f;
+		time = 60f;
 		Cake_HP = 100;
 		ant_num = 0;
 	}

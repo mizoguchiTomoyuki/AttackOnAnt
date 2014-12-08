@@ -9,10 +9,15 @@ public class ZipAnimeSystem : MonoBehaviour {
 	public GameObject _starter;
 	public SpriteRenderer spriteRenderer;
 	public float interval;
+
 	public GameObject zipper_slider;
-	public GameObject time_slider;
 	public Slider _zipper_slider;
+	private int max_zipSlider=111;
+	private int max_zipAnimValue=171;
+
+	public GameObject time_slider;
 	public Slider _time_slider;
+
 	public GameObject _motite;
 	public RectTransform _motite_transform;
 	//Add 
@@ -22,6 +27,8 @@ public class ZipAnimeSystem : MonoBehaviour {
 	public float premouseposition_x = 0;
 	public float zipaudioCounter = 0;
 	public float prepitch_upper = 0;
+
+	public float endtimeCounter = 0;
 	//public Image _motite_img;
 	public int I=0;
 	public int IL;
@@ -44,26 +51,26 @@ public class ZipAnimeSystem : MonoBehaviour {
 		progress = PROGRESS.NORMAL;
 		spriteRenderer = _starter.GetComponent<SpriteRenderer>();
 		sprites = Resources.LoadAll<Sprite>("zipper");
-		//textures = Resources.LoadAll<Texture>("zipper");
+
 		if(zipper_slider!=null){
 			_zipper_slider = zipper_slider.GetComponent<Slider>();
 			I=111-(int)_zipper_slider.value;
 		}
 		if(time_slider!=null){
 			_time_slider = time_slider.GetComponent<Slider>();
-		time_slider.SetActive(false);
+			time_slider.SetActive(false);
 		}
 		if(hand!=null){
 			_hand_animator = hand.GetComponent<Animator>();
 		}
 		if(_motite!=null){
-			//_motite_img = _motite.GetComponent<Image>();
+
 			_motite_transform = _motite.GetComponent<RectTransform>();
 		}
 	}
 	//IEnumerator Start (){
 	void Update(){
-		if (zipflag) {
+		if (zipflag && I!=0) {
 			zipaudioCounter+= Time.deltaTime;
 			if(zipaudioCounter > 0.001){
 			if(!autoflag){
@@ -92,7 +99,7 @@ public class ZipAnimeSystem : MonoBehaviour {
 						Debug.Log ("Equal");
 						aud.pitch -= 0.1f;
 					}
-					//aud.pitch = pitch_upper;
+
 					prepitch_upper = premouseposition_x - Input.mousePosition.x;
 					if(aud.pitch >0.8f){
 						aud.pitch =0.8f;
@@ -103,8 +110,13 @@ public class ZipAnimeSystem : MonoBehaviour {
 			aud.Play();
 			premouseposition_x = Input.mousePosition.x;
 			}else{
-					float pitch_upper = Mathf.Sin (((I-IL)/(float)(171-IL))*Mathf.PI);
-					//Debug.Log (pitch_upper);
+				
+					float pitch_upper = 0;;
+					if(AntGameManager.progress == AntGameManager.PROGRESS.ENDGAME){
+						pitch_upper = -Mathf.Sin (((I-171)/(float)(171))*Mathf.PI);
+					}else{
+						pitch_upper = Mathf.Sin (((I-IL)/(float)(171-IL))*Mathf.PI);
+					}
 					if(pitch_upper > 1f){
 						pitch_upper =1f;
 				}
@@ -114,32 +126,21 @@ public class ZipAnimeSystem : MonoBehaviour {
 			}
 			}
 				}
-		//_hand_animator.SetBool("zipper",false);
+
 		int slider_value= (int) _zipper_slider.value;
-		//int i=0;
-		//while(true){
-			//yield return new WaitForSeconds(interval);
-			//i=i+1;
-			//I=i*2;
-		//if(slider_value==0){
-		//	IL=I;
-		//}
-		//if(slider_value>0 && Input.GetMouseButtonUp(0)){
+
 		if(progress != PROGRESS.ENDZIPPER){
 			if(progress != PROGRESS.OPENZIPPER){
-				/*if(Input.GetMouseButton(0)){
-					_hand_animator.SetBool("grip",true);
-					_hand_animator.SetBool("zipper",false);
-				}*/
+
 		if(Input.GetMouseButtonDown(0)){
 					zipflag = true;
 					_hand_animator.SetBool("grip",true);
 					_hand_animator.SetBool("zipper",false);
 					progress = PROGRESS.BUTTONDOWN;
-			zipper_counter =0;
+					zipper_counter =0;
 		}
 		if(Input.GetMouseButtonUp(0) && progress==PROGRESS.BUTTONDOWN && I!=0){
-			IL=I;
+			IL=I; //IL(ILast)はIの最終的な値である. 
 			progress = PROGRESS.BUTTONUP;
 			zipflag = false;
 		}
@@ -148,40 +149,96 @@ public class ZipAnimeSystem : MonoBehaviour {
 					if(zipper_counter>=1){
 						zipflag = true;
 						autoflag = true;
-				progress = PROGRESS.OPENZIPPER;
-						AntGameManager.ProgressStepUP();
-			}
+						progress = PROGRESS.OPENZIPPER;
+					}
 		}
 			}
 		if(slider_value<=0 || progress == PROGRESS.OPENZIPPER){
 			//I=IL;
-				
-				int a = 1+(int)(((I-IL)/(float)(171-IL))*10);
+				if(AntGameManager.progress == AntGameManager.PROGRESS.STARTWAIT){
+					
+					AntGameManager.ProgressStepUP();
+				}
+				int a = 1+(int)(((I-IL)/(float)(max_zipAnimValue-IL))*10);
 				I+=a;
-				//_motite_transform.localPosition -= Vector3.right*(I*6);
-				//_motite_img.color = new Color(0,0,0,0);
+
 				_motite.SetActive(false);
 		}else{
-			I=111-slider_value;
+				I=max_zipSlider-slider_value; //Iの値はZipperのスライダーの最大値から現在のスライダーの値を引いたものである. 
 		}
-		if(I>171){
-				I=171;
+			if(I>max_zipAnimValue){ //Iの値がアニメの最終番号に到達したら. 
+				I=max_zipAnimValue;
 				aud.pitch = 0;
 				zipflag = false;
 				autoflag = false;
+				progress = PROGRESS.ENDZIPPER;
+				if(!AntGameManager.stflag){
+					if(BGMManager.Instance)
+					{
+						BGMManager.Instance.PlaySE(6);
+
+						BGMManager.Instance.PlayBGM(0, 1);
+					}
+				}
 				AntGameManager.stflag =true;
 			zipper_slider.SetActive(false);
 			time_slider.SetActive(true);
 			_starter.SetActive(false);
-				//_hand_animator.SetBool("zipper",true);
-				//progress = PROGRESS.ENDZIPPER;
-			//break;
+
+
 			}
 		if(I>=0 && I<sprites.Length){
 			spriteRenderer.sprite = sprites[I];
-			//I++;
+
 		}
-		//}
+
 		}
+		float temp_timer = AntGameManager.GetTime();
+		Debug.Log (AntGameManager.progress);
+		if (temp_timer <= 0) {
+			if(AntGameManager.progress == AntGameManager.PROGRESS.PLAYGAME){
+				AntGameManager.ProgressStepUP();
+				time_slider.SetActive(false);
+				autoflag = true;
+				zipflag = true;
+				zipper_slider.SetActive(true);
+				_starter.SetActive(true);
+				if(BGMManager.Instance)
+				{
+					BGMManager.Instance.StopBGM();
+				}
+			}else if(AntGameManager.progress == AntGameManager.PROGRESS.ENDGAME){
+			endtimeCounter+=Time.deltaTime;
+
+			if(endtimeCounter>4){
+				endtimeCounter=0;
+				InitialieZipper();
+				}else{
+				if(I<=0){
+					I=0;
+					autoflag = false;
+					zipflag = false;
+					}else{
+						int a = 1+(int)(((float)(max_zipAnimValue)/I)/2);
+						I-=a;
+
+					}
+					Debug.Log("Last I"+I);
+					if(I<=0){
+						I=0;
+					}
+					spriteRenderer.sprite = sprites[I];
+			}
+			}
+		}
+	}
+
+	void InitialieZipper(){
+		progress = PROGRESS.NORMAL;
+		_zipper_slider.value = 111;
+		I=111-(int)_zipper_slider.value;
+		zipflag = true;
+		autoflag = false;
+		AntGameManager.Init ();
 	}
 }
