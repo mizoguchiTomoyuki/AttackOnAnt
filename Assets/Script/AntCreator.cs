@@ -14,6 +14,8 @@ public class AntCreator : MonoBehaviour {
 
 	public int Max_Range=41, Min_Range=0;
 
+	public float AntScale = 1.0f;
+
 	private float enemy_spawn_count = 0;
 	private int progress;
 	private float[] prog_timer;
@@ -40,11 +42,15 @@ public class AntCreator : MonoBehaviour {
 								if (rand > 1f) {
 										int rand_point = Random.Range (Min_Range, Max_Range);
 										Vector3 Enemy_position = GetNumOfAppear (rand_point);
+						if(!AntGameManager.reverse){Enemy_position = new Vector3(-Enemy_position.x,Enemy_position.y,Enemy_position.z); }
 										GameObject TmpAnt = (GameObject)Instantiate (Original_Ant, Enemy_position, Quaternion.identity);
 										TmpAnt.AddComponent ("TargetAttack");
+										float Scale = Random.Range (AntScale,1.0f);
+										TmpAnt.transform.localScale = new Vector3(Scale,Scale,Scale);
 										TmpAnt.GetComponent<TargetAttack> ().Target_Cake = Target;
 										TmpAnt.GetComponent<TargetAttack> ().EscapePoint = Escape_P;
 										TmpAnt.GetComponent<TargetAttack> ().speed = 0.001f;
+										TmpAnt.GetComponent<TargetAttack> ()._antScale = AntScale;
 										AntGameManager.AddAnt();
 								}
 						}

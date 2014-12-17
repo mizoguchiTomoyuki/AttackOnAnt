@@ -85,18 +85,18 @@ public class ZipAnimeSystem : MonoBehaviour {
 						pitch_upper = 0;
 						
 					}
-					Debug.Log (pitch_upper);
+					//Debug.Log (pitch_upper);
 					if(premouseposition_x - Input.mousePosition.x <= prepitch_upper){
 						
-						Debug.Log ("Back");
+					//	Debug.Log ("Back");
 						aud.pitch -= pitch_upper+0.01f;
 					}else if(premouseposition_x - Input.mousePosition.x > prepitch_upper){
 						aud.pitch += pitch_upper+0.03f;
-						Debug.Log ("Gain");
+					//	Debug.Log ("Gain");
 
 					}
 					if(premouseposition_x - Input.mousePosition.x == 0){
-						Debug.Log ("Equal");
+					//	Debug.Log ("Equal");
 						aud.pitch -= 0.1f;
 					}
 
@@ -155,6 +155,9 @@ public class ZipAnimeSystem : MonoBehaviour {
 			}
 		if(slider_value<=0 || progress == PROGRESS.OPENZIPPER){
 			//I=IL;
+				if(progress != PROGRESS.OPENZIPPER){
+					IL = max_zipAnimValue;
+				}
 				if(AntGameManager.progress == AntGameManager.PROGRESS.STARTWAIT){
 					
 					AntGameManager.ProgressStepUP();
@@ -177,7 +180,6 @@ public class ZipAnimeSystem : MonoBehaviour {
 					{
 						BGMManager.Instance.PlaySE(6);
 
-						BGMManager.Instance.PlayBGM(0, 1);
 					}
 				}
 				AntGameManager.stflag =true;

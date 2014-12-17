@@ -11,21 +11,32 @@ public class TargetAttack : MonoBehaviour {
 		SURPRISE = 2,
 		ESCAPE = 3,
 		EAT = 4,
+		DEATH = 5,
+		DOWN = 6,
 	};
+	private BoxCollider2D boxel;
 	private float surprise_count = 0;
 	private AntPROGRESS progress = AntPROGRESS.WALK;
+	private SpriteRenderer _AntSprite;
+	private GameObject _Ant;
 	public float speed=0.05f;
 	public float walk_count = 0;
 	public float attack_interval = 0.7f;
+	public float _antScale=1.0f;
 	private float attack_count = 0f;
-
+	private float death_count = 0f;
+	private float death_time = 4f;
 	private float rand_x,rand_y,rand_z;
+	private Color transparent = new Color(1,1,1,0.0f);
 	// Use this for initialization
 	void Start () {
 		if (Target_Cake == null) {
 			this.Destroy(this);
 				}
 		_AntAnimator = GetComponent<AntAnimation> ().AntAnimator;
+		_Ant = GetComponent<AntAnimation> ().Ant;
+		_AntSprite = _Ant.GetComponent<SpriteRenderer> ();
+		boxel = GetComponent<BoxCollider2D> ();
 	}
 	
 	// Update is called once per frame
@@ -85,6 +96,22 @@ public class TargetAttack : MonoBehaviour {
 				AntGameManager.CakeEat(0.1f);
 			}*/
 			break;
+		case AntPROGRESS.DEATH:
+			death_count+=Time.deltaTime;
+			_AntSprite.color = Color.Lerp(Color.white,transparent,death_count/death_time);
+			if(death_count>death_time){
+			this.Destroy(this.gameObject);
+			}
+			speed = 0;
+			break;
+		case AntPROGRESS.DOWN:
+			death_count+=Time.deltaTime;
+			_AntSprite.color = Color.Lerp(Color.white,transparent,death_count/death_time);
+			if(death_count>death_time){
+				this.Destroy(this.gameObject);
+			}
+			speed = 0;
+			break;
 		}
 
 		if (Vector3.Distance (this.transform.position, Target_Cake.transform.position) < 2 && progress == AntPROGRESS.WALK) {
@@ -100,13 +127,30 @@ public class TargetAttack : MonoBehaviour {
 
 
 		Vector3 TagVector =  Target_Cake.transform.position-this.transform.position;
-		transform.Translate (TagVector * speed);
+		transform.Translate (TagVector * speed *_antScale *2);
 	}
 	void OnCollisionEnter2D(Collision2D col){
 		if (col.gameObject.tag == "impact") {
-			progress = AntPROGRESS.SURPRISE;
-			_AntAnimator.SetBool ("Escape",true);
-			if (BGMManager.Instance)BGMManager.Instance.PlaySE (3);
+			Vector2 colPosition2D = new Vector2(col.transform.position.x,col.transform.position.y);
+			Vector2 thisPosition2D = new Vector2(this.transform.position.x,this.transform.position.y);
+			float dist = Vector2.Distance(colPosition2D,thisPosition2D);
+			if(dist<0.3*_antScale){
+				progress = AntPROGRESS.DEATH;
+				_AntAnimator.SetBool ("Death",true);
+				if (BGMManager.Instance)BGMManager.Instance.PlaySE (7);
+				boxel.enabled = false;
+				AntGameManager.DestroyAntAdd ();
+			}else if(dist<0.6*_antScale){
+				progress = AntPROGRESS.DOWN;
+				_AntAnimator.SetBool ("Down",true);
+				if (BGMManager.Instance)BGMManager.Instance.PlaySE (8);
+				boxel.enabled = false;
+				AntGameManager.DestroyAntAdd ();
+			}else{
+				progress = AntPROGRESS.SURPRISE;
+				_AntAnimator.SetBool ("Escape",true);
+				if (BGMManager.Instance)BGMManager.Instance.PlaySE (3);
+			}
 		}
 	}
 }

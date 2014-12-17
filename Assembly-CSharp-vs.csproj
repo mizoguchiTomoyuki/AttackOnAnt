@@ -48,6 +48,9 @@
   <ItemGroup>
      <Compile Include="Assets\Add\timer_manager.cs" />
      <Compile Include="Assets\AntDestroy.cs" />
+     <Compile Include="Assets\ButtonManager.cs" />
+     <Compile Include="Assets\CakeSlideIn.cs" />
+     <Compile Include="Assets\ProgressManager.cs" />
      <Compile Include="Assets\Script\AntAnimation.cs" />
      <Compile Include="Assets\Script\AntCreator.cs" />
      <Compile Include="Assets\Script\CakeManager.cs" />
@@ -71,6 +74,8 @@
      <Compile Include="Assets\Script\TextureAnimation.cs" />
      <Compile Include="Assets\Script\TimeText.cs" />
      <Compile Include="Assets\Script\ZipAnimeSystem.cs" />
+     <Compile Include="Assets\SwitchScale.cs" />
+     <Compile Include="Assets\UISwitchScale.cs" />
      <None Include="Assets\Font\TimeNum\numFont.xml" />
      <None Include="Assets\Font\fontScore.txt" />
      <None Include="Assets\Font\font3.txt" />

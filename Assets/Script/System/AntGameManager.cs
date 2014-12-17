@@ -5,14 +5,18 @@ public static class AntGameManager {
 
 	public static int destroy_AntNum = 0;
 	public static float Cake_HP = 100;
-	public static float time=61f;
+	public static float time=60f;
 	public static bool bMute = false;
 	public static int ant_num = 0;
 	public static bool stflag = false;
+	public static  float[] progressCounter = {0,3,0,10,0};
+	public static bool reverse= true;
 	public enum PROGRESS{
 		STARTWAIT = 0,
-		PLAYGAME = 1,
-		ENDGAME = 2,
+		READYGAME = 1,
+		PLAYGAME = 2,
+		RESULTGAME = 3,
+		ENDGAME = 4,
 	};
 	public static PROGRESS progress;
 	public enum CAKESTATE
@@ -39,10 +43,18 @@ public static class AntGameManager {
 	}
 	public static void ProgressStepUP(){
 		switch(progress){
-		case PROGRESS.STARTWAIT:
+		case PROGRESS.STARTWAIT: 
+			Cake_HP = 100;
+			cake_state = CAKESTATE.NORMAL;
+			progress = PROGRESS.READYGAME;
+			break;
+		case PROGRESS.READYGAME: 
 			progress = PROGRESS.PLAYGAME;
 			break;
 		case PROGRESS.PLAYGAME:
+			progress = PROGRESS.RESULTGAME;
+			break;
+		case PROGRESS.RESULTGAME:
 			progress = PROGRESS.ENDGAME;
 			break;
 		case PROGRESS.ENDGAME:
@@ -80,8 +92,14 @@ public static class AntGameManager {
 
 	public static int GetTime(){
 		return (int)time;
-		}
-
+	}
+	public static void SetTime(float t){
+		time = t;
+	}
+	
+	public static void TurnReverse(){
+		reverse = !reverse;
+	}
 	public static Sprite GetSprite(string fileName, string spriteName) {
 		Sprite[] sprites = Resources.LoadAll<Sprite>(fileName);
 		return System.Array.Find<Sprite>(sprites, (sprite) => sprite.name.Equals(spriteName));

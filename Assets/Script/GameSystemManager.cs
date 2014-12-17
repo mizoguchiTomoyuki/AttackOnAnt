@@ -18,4 +18,12 @@ public class GameSystemManager : MonoBehaviour {
 		}
 		}
 	}
+	public void SetTimer(float n){
+				if (AntGameManager.progress == AntGameManager.PROGRESS.STARTWAIT) {
+						AntGameManager.SetTime (n);
+				}
+		}
+	public void ReverseStage(){
+		AntGameManager.TurnReverse ();
+	}
 }

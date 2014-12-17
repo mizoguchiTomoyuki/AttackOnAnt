@@ -7,7 +7,7 @@ public class CursorManager : MonoBehaviour {
 	
 	void Awake ()
 	{
-		Screen.showCursor = false;
+		//Screen.showCursor = false;
 		//Cursor.SetCursor(cursorTexture, hotSpot, CursorMode.Auto);
 
 	}

@@ -10,7 +10,7 @@ public class HandManager : MonoBehaviour {
 	//public Camera _camera;
 	void Awake ()
 	{
-		Screen.showCursor = false;
+		//Screen.showCursor = false;
 	}
 	// Use this for initialization
 	void Start () {

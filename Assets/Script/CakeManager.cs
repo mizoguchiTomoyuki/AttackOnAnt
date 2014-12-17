@@ -15,6 +15,7 @@ public class CakeManager : MonoBehaviour {
 		AntGameManager.CAKESTATE state = AntGameManager.cake_state;
 		switch (state) {
 		case AntGameManager.CAKESTATE.NORMAL:
+			CakeSpriteRen.sprite = AntGameManager.GetSprite("cake_","cake__0");
 			break;
 		case AntGameManager.CAKESTATE.DAMAGE_1:
 			CakeSpriteRen.sprite = AntGameManager.GetSprite("cake_","cake__1");

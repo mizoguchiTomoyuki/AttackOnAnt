@@ -60,8 +60,8 @@ public class timer_manager : MonoBehaviour {
 			
 			
 		}
-		_handle_transform.localPosition=new Vector3(x_min + x_length*timer/startTime,Original_y,0);
-		_text_transform.localPosition=new Vector3(x_min + x_length*timer/startTime,Original_y,0);
+	//	_handle_transform.localPosition=new Vector3(x_min + x_length*timer/startTime,Original_y,0);
+	//	_text_transform.localPosition=new Vector3(x_min + x_length*timer/startTime,Original_y,0);
 		//_second_transform.localPosition=new Vector3(x_min + x_length*timer/startTime +5,Original_y_sec,0);
 		}
 	}
