@@ -29,7 +29,7 @@ public class timer_manager : MonoBehaviour {
 		x_length = x_max-x_min;
 		reset();
 	//	slider = GameObject.Find("Slider");
-		_slider = slider.GetComponent<Slider>();
+		//_slider = slider.GetComponent<Slider>();
 		_text = _time_text.GetComponent<Text>();
 		_text_transform = _time_text.GetComponent<RectTransform>();
 		//_second = _second_text.GetComponent<Text>();
@@ -49,7 +49,7 @@ public class timer_manager : MonoBehaviour {
 		if(AntGameManager.stflag){
 		timer =  AntGameManager.time;
 		int temp_timer = AntGameManager.GetTime();
-		_slider.value = timer;
+	//	_slider.value = timer;
 		_text.text = temp_timer.ToString();
 		if (temp_timer <= 0)
 		{

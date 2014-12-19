@@ -7,6 +7,7 @@ public class AntCreator : MonoBehaviour {
 	public GameObject Original_Ant;
 
 	public float interval = 1.0f;
+	private float origininterval = 1.0f;
 
 	public Camera Main_Camera;
 	public int max_Ant = 20;
@@ -19,6 +20,8 @@ public class AntCreator : MonoBehaviour {
 	private float enemy_spawn_count = 0;
 	private int progress;
 	private float[] prog_timer;
+	private float _speedinc = 0.001f;
+	private float _maxspeed = 1f;
 	// Use this for initialization
 	void Start () {
 		if (Target == null) {
@@ -33,10 +36,23 @@ public class AntCreator : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if (AntGameManager.progress == AntGameManager.PROGRESS.READYGAME) {
+			if((float)AntGameManager.GetTime() >= 59f){
+			_speedinc = 0.001f;
+			_maxspeed = 1.2f;
+			}else{ 
+				_speedinc = 0.001f;
+
+				_maxspeed = 1.5f;
+
+			}
+				}
 		if (AntGameManager.progress == AntGameManager.PROGRESS.PLAYGAME) {
+			origininterval = interval/((60f-(float)AntGameManager.GetTime())/10f);
+		//	Debug.Log (origininterval);
 		enemy_spawn_count += Time.deltaTime;
 		if (AntGameManager.ant_num <= max_Ant) {
-						if (enemy_spawn_count > interval) {
+				if (enemy_spawn_count > origininterval) {
 								enemy_spawn_count = 0;
 								float rand = Random.Range (0, 3f);
 								if (rand > 1f) {
@@ -50,6 +66,8 @@ public class AntCreator : MonoBehaviour {
 										TmpAnt.GetComponent<TargetAttack> ().Target_Cake = Target;
 										TmpAnt.GetComponent<TargetAttack> ().EscapePoint = Escape_P;
 										TmpAnt.GetComponent<TargetAttack> ().speed = 0.001f;
+						TmpAnt.GetComponent<TargetAttack> ().speedinc = _speedinc*(60-(float)AntGameManager.GetTime())*AntScale*0.1f;
+						TmpAnt.GetComponent<TargetAttack> ().maxspeed = _maxspeed*(60-(float)AntGameManager.GetTime())*AntScale*0.1f;
 										TmpAnt.GetComponent<TargetAttack> ()._antScale = AntScale;
 										AntGameManager.AddAnt();
 								}

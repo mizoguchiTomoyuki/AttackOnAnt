@@ -20,16 +20,18 @@ public class DifficultySystem : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		difficult_checker = aScript.IL;
-		//Debug.Log("test");
-		if(difficult_checker>=110){
-			difficult_checker=110;
-		}
-		bScript.max_Ant=difficult_checker*50/110;
-		bScript.interval=(1.3f-difficult_checker/110f);
-		bScript.Max_Range=25+difficult_checker*16/110;
-		bScript.Min_Range=16-difficult_checker*16/110;
-		bScript.AntScale=(1.0f-difficult_checker/110f+0.2f);
+		if (AntGameManager.progress == AntGameManager.PROGRESS.READYGAME) {
+						difficult_checker = aScript.IL;
+						//Debug.Log("test");
+						if (difficult_checker >= 110) {
+								difficult_checker = 110;
+						}
+						bScript.max_Ant = difficult_checker * 50 / 110;
+						bScript.interval = (1.3f - difficult_checker / 110f);
+						bScript.Max_Range = 25 + difficult_checker * 16 / 110;
+						bScript.Min_Range = 16 - difficult_checker * 16 / 110;
+						bScript.AntScale = (1.0f - difficult_checker / 110f + 0.4f);
+				}
 		/*if(difficult_checker>=110){
 			bScript.max_Ant = 40;
 			bScript.Max_Range = 41;

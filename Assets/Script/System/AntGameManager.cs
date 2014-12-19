@@ -6,6 +6,7 @@ public static class AntGameManager {
 	public static int destroy_AntNum = 0;
 	public static float Cake_HP = 100;
 	public static float time=60f;
+	public static float progcounter = 0;
 	public static bool bMute = false;
 	public static int ant_num = 0;
 	public static bool stflag = false;
@@ -42,6 +43,7 @@ public static class AntGameManager {
 		ant_num = 0;
 	}
 	public static void ProgressStepUP(){
+		progcounter = 0;
 		switch(progress){
 		case PROGRESS.STARTWAIT: 
 			Cake_HP = 100;

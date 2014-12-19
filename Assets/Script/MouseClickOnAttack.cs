@@ -17,13 +17,30 @@ public class MouseClickOnAttack : MonoBehaviour {
 			Attack_Point = main.ScreenToWorldPoint(Input.mousePosition);
 			Vector3 AttackTmpPoint = new Vector3 (Attack_Point.x,Attack_Point.y,z_point);
 			GameObject Attack = (GameObject)Instantiate(AttackImpact,AttackTmpPoint,Quaternion.identity);
-			if(Input.mousePosition.x<(Screen.width*1.5f)/4){
-			Attack.GetComponent<ImpactExpand>().imp_range = 0.3f;
-			}else if(Input.mousePosition.x<(Screen.width*2.5f)/4){
+			float mousePos = Input.mousePosition.x;
+			Debug.Log (mousePos);
+			if(AntGameManager.reverse){
+			if(mousePos<(Screen.width*1.5f)/4f){
+			Attack.GetComponent<ImpactExpand>().imp_range = 0.6f;
+			}else if(mousePos<(Screen.width*2.5f)/4f){
 				Attack.GetComponent<ImpactExpand>().imp_range = 0.9f;
-			}else if(Input.mousePosition.x<(Screen.width*3)/4){
+			}else if(mousePos<(Screen.width*3)/4f){
 				Attack.GetComponent<ImpactExpand>().imp_range = 1.2f;
+			}else{
+				Attack.GetComponent<ImpactExpand>().imp_range = 1.2f;
+				}
+			}else{
+				if(mousePos<(Screen.width*1.5f)/4f){
+					Attack.GetComponent<ImpactExpand>().imp_range = 1.2f;
+				}else if(mousePos<(Screen.width*2.5f)/4f){
+					Attack.GetComponent<ImpactExpand>().imp_range = 0.9f;
+				}else if(mousePos<(Screen.width*3)/4f){
+					Attack.GetComponent<ImpactExpand>().imp_range = 0.6f;
+				}else{
+					Attack.GetComponent<ImpactExpand>().imp_range = 0.6f;
+				}
 			}
+
 		}
 	}
 }

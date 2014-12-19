@@ -47,13 +47,12 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Add\timer_manager.cs" />
-     <Compile Include="Assets\AntDestroy.cs" />
-     <Compile Include="Assets\ButtonManager.cs" />
-     <Compile Include="Assets\CakeSlideIn.cs" />
-     <Compile Include="Assets\ProgressManager.cs" />
      <Compile Include="Assets\Script\AntAnimation.cs" />
      <Compile Include="Assets\Script\AntCreator.cs" />
+     <Compile Include="Assets\Script\AntDestroy.cs" />
+     <Compile Include="Assets\Script\ButtonManager.cs" />
      <Compile Include="Assets\Script\CakeManager.cs" />
+     <Compile Include="Assets\Script\CakeSlideIn.cs" />
      <Compile Include="Assets\Script\CursorManager.cs" />
      <Compile Include="Assets\Script\DifficultySystem.cs" />
      <Compile Include="Assets\Script\EnemyDeleter.cs" />
@@ -64,7 +63,9 @@
      <Compile Include="Assets\Script\Keymanager.cs" />
      <Compile Include="Assets\Script\MouseClickOnAttack.cs" />
      <Compile Include="Assets\Script\ParticleAliveCheck.cs" />
+     <Compile Include="Assets\Script\ProgressManager.cs" />
      <Compile Include="Assets\Script\ScoreText.cs" />
+     <Compile Include="Assets\Script\SwitchScale.cs" />
      <Compile Include="Assets\Script\System\AntGameManager.cs" />
      <Compile Include="Assets\Script\System\AppearAndSE.cs" />
      <Compile Include="Assets\Script\System\BGMManager.cs" />
@@ -73,9 +74,8 @@
      <Compile Include="Assets\Script\TargetAttack.cs" />
      <Compile Include="Assets\Script\TextureAnimation.cs" />
      <Compile Include="Assets\Script\TimeText.cs" />
+     <Compile Include="Assets\Script\UISwitchScale.cs" />
      <Compile Include="Assets\Script\ZipAnimeSystem.cs" />
-     <Compile Include="Assets\SwitchScale.cs" />
-     <Compile Include="Assets\UISwitchScale.cs" />
      <None Include="Assets\Font\TimeNum\numFont.xml" />
      <None Include="Assets\Font\fontScore.txt" />
      <None Include="Assets\Font\font3.txt" />

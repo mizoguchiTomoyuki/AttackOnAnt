@@ -20,6 +20,8 @@ public class TargetAttack : MonoBehaviour {
 	private SpriteRenderer _AntSprite;
 	private GameObject _Ant;
 	public float speed=0.05f;
+	public float speedinc=0.001f;
+	public float maxspeed=1f;
 	public float walk_count = 0;
 	public float attack_interval = 0.7f;
 	public float _antScale=1.0f;
@@ -46,9 +48,9 @@ public class TargetAttack : MonoBehaviour {
 			walk_count+=Time.deltaTime;
 			if(walk_count>1.1f){
 				walk_count = 0;
-				speed += 0.001f;
-				if(speed >= 1){
-					speed = 1;
+				speed += speedinc;
+				if(speed >= maxspeed){
+					speed = maxspeed;
 				}
 			}
 			break;
@@ -77,7 +79,7 @@ public class TargetAttack : MonoBehaviour {
 				transform.Translate (TagstVector * speed);
 			}else if(attack_count<=1.0){
 				Vector3 TagreVector =  new Vector3(rand_x,rand_y,rand_z);
-				Debug.Log (TagreVector);
+				//Debug.Log (TagreVector);
 				transform.Translate (TagreVector * speed*7);
 			}else if(attack_count <= 1.0 +attack_interval){
 				speed = 0;
@@ -135,18 +137,36 @@ public class TargetAttack : MonoBehaviour {
 			Vector2 thisPosition2D = new Vector2(this.transform.position.x,this.transform.position.y);
 			float dist = Vector2.Distance(colPosition2D,thisPosition2D);
 			if(dist<0.3*_antScale){
+				if(progress == AntPROGRESS.SURPRISE){
+					_AntAnimator.SetBool ("Escape",false);
+				}
+				if(progress == AntPROGRESS.EAT){
+					_AntAnimator.SetBool ("Eat",false);
+					_AntAnimator.SetBool ("Jump",false);
+				}
 				progress = AntPROGRESS.DEATH;
 				_AntAnimator.SetBool ("Death",true);
 				if (BGMManager.Instance)BGMManager.Instance.PlaySE (7);
 				boxel.enabled = false;
 				AntGameManager.DestroyAntAdd ();
 			}else if(dist<0.6*_antScale){
+				if(progress == AntPROGRESS.SURPRISE){
+					_AntAnimator.SetBool ("Escape",false);
+				}
+				if(progress == AntPROGRESS.EAT){
+					_AntAnimator.SetBool ("Eat",false);
+					_AntAnimator.SetBool ("Jump",false);
+				}
 				progress = AntPROGRESS.DOWN;
 				_AntAnimator.SetBool ("Down",true);
 				if (BGMManager.Instance)BGMManager.Instance.PlaySE (8);
 				boxel.enabled = false;
 				AntGameManager.DestroyAntAdd ();
 			}else{
+				if(progress == AntPROGRESS.EAT){
+					_AntAnimator.SetBool ("Eat",false);
+					_AntAnimator.SetBool ("Jump",false);
+				}
 				progress = AntPROGRESS.SURPRISE;
 				_AntAnimator.SetBool ("Escape",true);
 				if (BGMManager.Instance)BGMManager.Instance.PlaySE (3);

@@ -56,10 +56,6 @@ public class ZipAnimeSystem : MonoBehaviour {
 			_zipper_slider = zipper_slider.GetComponent<Slider>();
 			I=111-(int)_zipper_slider.value;
 		}
-		if(time_slider!=null){
-			_time_slider = time_slider.GetComponent<Slider>();
-			time_slider.SetActive(false);
-		}
 		if(hand!=null){
 			_hand_animator = hand.GetComponent<Animator>();
 		}
@@ -75,32 +71,35 @@ public class ZipAnimeSystem : MonoBehaviour {
 			if(zipaudioCounter > 0.001){
 			if(!autoflag){
 					zipaudioCounter = 0;
-
-				float pitch_upper = Mathf.Pow (Mathf.Abs((premouseposition_x - Input.mousePosition.x)/500),1f);
-					if(premouseposition_x - Input.mousePosition.x<0){
-						pitch_upper = Mathf.Pow (Mathf.Abs((premouseposition_x - Input.mousePosition.x)/1000),1f);
+					Vector3 mousePos = Input.mousePosition;
+					if(AntGameManager.reverse){
+						mousePos = new Vector3(-mousePos.x,mousePos.y,mousePos.z);
+					}
+				float pitch_upper = Mathf.Pow (Mathf.Abs((premouseposition_x - mousePos.x)/500),1f);
+					if(premouseposition_x - mousePos.x<0){
+						pitch_upper = Mathf.Pow (Mathf.Abs((premouseposition_x - mousePos.x)/1000),1f);
 
 					}
-					if(premouseposition_x - Input.mousePosition.x==0){
+					if(premouseposition_x - mousePos.x==0){
 						pitch_upper = 0;
 						
 					}
 					//Debug.Log (pitch_upper);
-					if(premouseposition_x - Input.mousePosition.x <= prepitch_upper){
+					if(premouseposition_x - mousePos.x <= prepitch_upper){
 						
 					//	Debug.Log ("Back");
 						aud.pitch -= pitch_upper+0.01f;
-					}else if(premouseposition_x - Input.mousePosition.x > prepitch_upper){
+					}else if(premouseposition_x - mousePos.x > prepitch_upper){
 						aud.pitch += pitch_upper+0.03f;
 					//	Debug.Log ("Gain");
 
 					}
-					if(premouseposition_x - Input.mousePosition.x == 0){
+					if(premouseposition_x - mousePos.x == 0){
 					//	Debug.Log ("Equal");
 						aud.pitch -= 0.1f;
 					}
 
-					prepitch_upper = premouseposition_x - Input.mousePosition.x;
+					prepitch_upper = premouseposition_x - mousePos.x;
 					if(aud.pitch >0.8f){
 						aud.pitch =0.8f;
 					}
@@ -108,14 +107,14 @@ public class ZipAnimeSystem : MonoBehaviour {
 						aud.pitch =0.0f;
 					}
 			aud.Play();
-			premouseposition_x = Input.mousePosition.x;
+			premouseposition_x = mousePos.x;
 			}else{
 				
 					float pitch_upper = 0;;
 					if(AntGameManager.progress == AntGameManager.PROGRESS.ENDGAME){
 						pitch_upper = -Mathf.Sin (((I-171)/(float)(171))*Mathf.PI);
 					}else{
-						pitch_upper = Mathf.Sin (((I-IL)/(float)(171-IL))*Mathf.PI);
+						pitch_upper = Mathf.Sin (((I-IL)/(float)(max_zipSlider-IL))*Mathf.PI);
 					}
 					if(pitch_upper > 1f){
 						pitch_upper =1f;
@@ -134,8 +133,8 @@ public class ZipAnimeSystem : MonoBehaviour {
 
 		if(Input.GetMouseButtonDown(0)){
 					zipflag = true;
-					_hand_animator.SetBool("grip",true);
-					_hand_animator.SetBool("zipper",false);
+				//	_hand_animator.SetBool("grip",true);
+				//	_hand_animator.SetBool("zipper",false);
 					progress = PROGRESS.BUTTONDOWN;
 					zipper_counter =0;
 		}
@@ -156,13 +155,14 @@ public class ZipAnimeSystem : MonoBehaviour {
 		if(slider_value<=0 || progress == PROGRESS.OPENZIPPER){
 			//I=IL;
 				if(progress != PROGRESS.OPENZIPPER){
-					IL = max_zipAnimValue;
+					IL = max_zipSlider;
+					progress = PROGRESS.OPENZIPPER;
 				}
 				if(AntGameManager.progress == AntGameManager.PROGRESS.STARTWAIT){
 					
 					AntGameManager.ProgressStepUP();
 				}
-				int a = 1+(int)(((I-IL)/(float)(max_zipAnimValue-IL))*10);
+				int a = 1+(int)(((I-IL)/(float)(max_zipSlider-IL))*10);
 				I+=a;
 
 				_motite.SetActive(false);
@@ -198,8 +198,7 @@ public class ZipAnimeSystem : MonoBehaviour {
 		float temp_timer = AntGameManager.GetTime();
 		Debug.Log (AntGameManager.progress);
 		if (temp_timer <= 0) {
-			if(AntGameManager.progress == AntGameManager.PROGRESS.PLAYGAME){
-				AntGameManager.ProgressStepUP();
+			if(AntGameManager.progress == AntGameManager.PROGRESS.ENDGAME){
 				time_slider.SetActive(false);
 				autoflag = true;
 				zipflag = true;
@@ -209,7 +208,6 @@ public class ZipAnimeSystem : MonoBehaviour {
 				{
 					BGMManager.Instance.StopBGM();
 				}
-			}else if(AntGameManager.progress == AntGameManager.PROGRESS.ENDGAME){
 			endtimeCounter+=Time.deltaTime;
 
 			if(endtimeCounter>4){
