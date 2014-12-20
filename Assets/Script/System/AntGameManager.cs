@@ -8,10 +8,12 @@ public static class AntGameManager {
 	public static float time=60f;
 	public static float progcounter = 0;
 	public static bool bMute = false;
+	public static bool SnipeMode=false;
 	public static int ant_num = 0;
 	public static bool stflag = false;
 	public static  float[] progressCounter = {0,3,0,10,0};
 	public static bool reverse= true;
+	public static float difficult = 0; //0~1であらわされる難しさの指標. 
 	public enum PROGRESS{
 		STARTWAIT = 0,
 		READYGAME = 1,
@@ -99,8 +101,14 @@ public static class AntGameManager {
 		time = t;
 	}
 	
+	public static void SetDifficult(float diff){
+		difficult = diff;
+	}
 	public static void TurnReverse(){
 		reverse = !reverse;
+	}
+	public static void TurnSnipe(){
+		SnipeMode = !SnipeMode;
 	}
 	public static Sprite GetSprite(string fileName, string spriteName) {
 		Sprite[] sprites = Resources.LoadAll<Sprite>(fileName);

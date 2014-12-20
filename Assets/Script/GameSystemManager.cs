@@ -26,4 +26,7 @@ public class GameSystemManager : MonoBehaviour {
 	public void ReverseStage(){
 		AntGameManager.TurnReverse ();
 	}
+	public void ChangeSnipe(){
+		AntGameManager.TurnSnipe ();
+	}
 }

@@ -26,11 +26,13 @@ public class DifficultySystem : MonoBehaviour {
 						if (difficult_checker >= 110) {
 								difficult_checker = 110;
 						}
-						bScript.max_Ant = difficult_checker * 50 / 110;
-						bScript.interval = (1.3f - difficult_checker / 110f);
-						bScript.Max_Range = 25 + difficult_checker * 16 / 110;
-						bScript.Min_Range = 16 - difficult_checker * 16 / 110;
-						bScript.AntScale = (1.0f - difficult_checker / 110f + 0.4f);
+						AntGameManager.SetDifficult((float)difficult_checker/110f);
+						float _difficult = AntGameManager.difficult;
+						bScript.max_Ant = (int)(50*_difficult);
+						bScript.interval = (1.3f - _difficult);
+						bScript.Max_Range = 25 + (int)(16*_difficult);
+						bScript.Min_Range = 16 - (int)(16*_difficult);
+						bScript.AntScale = (1.5f - _difficult);
 				}
 		/*if(difficult_checker>=110){
 			bScript.max_Ant = 40;

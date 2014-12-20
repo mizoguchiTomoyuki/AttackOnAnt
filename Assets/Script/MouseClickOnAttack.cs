@@ -19,6 +19,10 @@ public class MouseClickOnAttack : MonoBehaviour {
 			GameObject Attack = (GameObject)Instantiate(AttackImpact,AttackTmpPoint,Quaternion.identity);
 			float mousePos = Input.mousePosition.x;
 			Debug.Log (mousePos);
+			if(AntGameManager.difficult>0.8){
+				
+				Attack.GetComponent<ImpactExpand>().imp_range = 0.01f*AntGameManager.ant_num;
+			}else{
 			if(AntGameManager.reverse){
 			if(mousePos<(Screen.width*1.5f)/4f){
 			Attack.GetComponent<ImpactExpand>().imp_range = 0.6f;
@@ -39,6 +43,7 @@ public class MouseClickOnAttack : MonoBehaviour {
 				}else{
 					Attack.GetComponent<ImpactExpand>().imp_range = 0.6f;
 				}
+			}
 			}
 
 		}

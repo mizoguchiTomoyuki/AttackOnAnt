@@ -62,7 +62,7 @@ public class CakeSlideIn : MonoBehaviour {
 										BGMManager.Instance.PlayBGM(0, 1);
 										AntGameManager.ProgressStepUP();
 								}
-						}
+						}else{
 						LastPoint = new Vector3 ((_pointA.x - _pointB.x) * ((float)_zip.IL / max_zipSlider), 0, 0);
 						//	LastPoint = (_pointA + _pointB) - _pointB * (_zip.IL / max_zipSlider);
 						Debug.Log (LastPoint);
@@ -76,6 +76,7 @@ public class CakeSlideIn : MonoBehaviour {
 								rota = -rota;
 								Debug.Log (rota);
 						}
+			}
 		
 				}
 			if (AntGameManager.progress == AntGameManager.PROGRESS.RESULTGAME) {
